@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моей любимой звёздочке</title>
+    
+    <!-- Шрифты: Playfair для заголовков, Manrope для текста и Caveat для манга-эффекта -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- БАЗОВЫЕ НАСТРОЙКИ --- */
+        :root {
+            --bg-color: #0a0b10;
+            --text-main: #e2e8f0;
+            --accent-orange: #f97316; /* Более яркий оранжевый для текста */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Manrope', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(249, 115, 22, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(74, 44, 42, 0.2) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .accent-text {
+            color: var(--accent-orange);
+            font-style: italic;
+        }
+
+        /* --- КОНТЕЙНЕР --- */
+        .wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        /* --- ЗАГОЛОВОК --- */
+        .hero {
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            color: #94a3b8;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* --- БЛОК С УЗИ --- */
+        .meme-section {
+            text-align: center;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .meme-section h2 {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            margin-bottom: 10px;
+        }
+
+        .meme-subtitle {
+            color: #94a3b8;
+            font-size: clamp(0.85rem, 3vw, 0.95rem);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .ultrasound-box {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            background-color: #000;
+        }
+
+        .ultrasound-img {
+            width: 100%;
+            display: block;
+            opacity: 0.55;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        .animals-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- ОБЕРТКА ДЛЯ ЖИВОТНЫХ --- */
+        .animal-wrapper {
+            position: absolute;
+            bottom: 10%;
+            transition: transform 0.3s ease;
+        }
+
+        /* Позиции (в процентах) */
+        .wrapper-shapochka { left: 8%; width: 22%; }
+        .wrapper-persik    { left: 30%; width: 22%; bottom: 16%; }
+        .wrapper-archie    { left: 53%; width: 22%; bottom: 12%; }
+        .wrapper-iggy      { left: 74%; width: 18%; bottom: 10%; }
+
+        .animal-img {
+            width: 100%;
+            display: block;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.9));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        /* Эффект при наведении (опционально) */
+        .animal-wrapper:hover .animal-img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.6));
+        }
+
+        /* --- МАНГА-ОБЛАЧКА --- */
+        .manga-bubble {
+            position: absolute;
+            bottom: 100%; /* Прямо над картинкой */
+            left: 50%;
+            transform: translateX(-50%) translateY(10px) scale(0.8);
+            margin-bottom: 10px;
+            
+            /* Стиль текста как в манге */
+            font-family: 'Caveat', cursive;
+            font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+            font-weight: 700;
+            color: var(--accent-orange);
+            line-height: 1;
+            white-space: nowrap;
+            
+            /* Обводка для читаемости */
+            text-shadow: 
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                -1px  1px 0 #000,
+                 1px  1px 0 #000,
+                 0px  2px 4px rgba(0,0,0,0.8);
+            
+            /* Анимация появления */
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Хвостик облачка (небольшая направляющая линия) */
+        .manga-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 12px;
+            background-color: var(--accent-orange);
+            box-shadow: 0 0 4px #000;
+            opacity: 0.8;
+        }
+
+        /* Класс, который включает появление */
+        .manga-bubble.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+
+        /* --- КАРТОЧКА С ПИСЬМОМ --- */
+        .letter-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: clamp(20px, 5vw, 40px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 1s ease-out;
+        }
+
+        .letter-card p {
+            margin-bottom: 16px;
+            font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+            color: #cbd5e1;
+        }
+
+        .letter-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* --- АНИМАЦИИ --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- АДАПТИВ ДЛЯ МОБИЛЬНЫХ (чтобы текст не наезжал) --- */
+        @media (max-width: 600px) {
+            .manga-bubble {
+                font-size: 1.1rem; /* Уменьшаем на очень маленьких экранах */
+                margin-bottom: 5px;
+            }
+            /* Сдвигаем крайние облачка, чтобы не вылезали за УЗИ */
+            .wrapper-shapochka .manga-bubble { left: 20%; }
+            .wrapper-iggy .manga-bubble { left: 80%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- Заголовок -->
+        <header class="hero">
+            <h1>Моей любимой Звёздочке</h1>
+            <p>Утютюшечке и самому вкусному Щеночку</p>
+        </header>
+
+        <!-- УЗИ -->
+        <section class="meme-section">
+            <h2>Детишкеее</h2>
+            <span class="meme-subtitle">Я и наши утютюшки любят Папочку!!</span>
+
+            <div class="ultrasound-box">
+                <img src="ultrasound.jpg" alt="УЗИ" class="ultrasound-img">
+                
+                <div class="animals-layer">
+                    <!-- Шапочка -->
+                    <div class="animal-wrapper wrapper-shapochka">
+                        <div class="manga-bubble">Папуля!!</div>
+                        <img src="shapochka.png" alt="Шапочка" class="animal-img">
+                    </div>
+                    
+                    <!-- Персик -->
+                    <div class="animal-wrapper wrapper-persik">
+                        <div class="manga-bubble">Мы тебя!</div>
+                        <img src="persik.png" alt="Персик" class="animal-img">
+                    </div>
+                    
+                    <!-- Арчи -->
+                    <div class="animal-wrapper wrapper-archie">
+                        <div class="manga-bubble">ЛЮБИМ! Гав!</div>
+                        <img src="archie.png" alt="Арчи" class="animal-img">
+                    </div>
+                    
+                    <!-- Игги -->
+                    <div class="animal-wrapper wrapper-iggy">
+                        <div class="manga-bubble">тяф ваф!!</div>
+                        <img src="iggy.png" alt="Игги" class="animal-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Письмо -->
+        <section class="letter-card">
+            <p>Милая, ты самая яркая и дорогая мне Звездочка. И я никогда не устану это говорить, ты настоящее чудо... С тобой я чувствую себя по-настоящему нужным. Я верю в то, что когда-нибудь мы и правда съедемся, чтобы быть рядышком, и будем тихонько жить и утютюшитьсяяяя!! Хочу ить ить к тебе и обнимашке..</p>
+            
+            <p>Я счастлив от того, что мы рядом вместе, в любой ситуации, как эти.. магнитики! Мяя, я тебя так люблю и детишек тоже, они такие утютю..</p>
+            
+            <!-- Вот здесь текст перенесен на новую строку (отдельный абзац) -->
+            <p>Я решил сделать небольшую страничку, посвященную нам и нашим утютюшкам. Очень надеюсь, что тебе понравится, муа💋</p>
+        </section>
+    </div>
+
+    <script>
+        // Ждем загрузки страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            // Небольшая задержка (500мс), чтобы картинки успели прогрузиться
+            setTimeout(() => {
+                const bubbles = document.querySelectorAll('.manga-bubble');
+                
+                // Добавляем класс show каждому облачку.
+                // Благодаря transition в CSS, они плавно вылетят все одновременно.
+                bubbles.forEach(bubble => {
+                    bubble.classList.add('show');
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
